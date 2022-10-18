@@ -123,8 +123,20 @@ def make_repeater(func, n):
     >>> make_repeater(square, 0)(5) # Yes, it makes sense to apply the function zero times!
     5
     """
-    "*** YOUR CODE HERE ***"
-
+    def compose2(f, g):
+        def h(x):
+            return g(f(x))
+        return h 
+    f = func 
+    if n == 1:
+        return func
+    elif n == 0:
+        return identity
+    else:
+        while n > 1:
+            func = compose2(func, f)
+            n -= 1
+        return func 
 
 def zero(f):
     return lambda x: x
