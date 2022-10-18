@@ -31,7 +31,11 @@ def product(n, term):
     162
     """
     "*** YOUR CODE HERE ***"
-
+    result = 1 
+    while n > 0:
+        result *= term(n)
+        n -= 1
+    return result 
 
 def accumulate(combiner, base, n, term):
     """Return the result of combining the first n terms in a sequence and base.
@@ -55,7 +59,17 @@ def accumulate(combiner, base, n, term):
     >>> accumulate(lambda x, y: (x + y) % 17, 19, 20, square)
     16
     """
-    "*** YOUR CODE HERE ***"
+    if n > 0: 
+        i = 1
+        while i <= n :
+            if i == 1:
+                result = combiner(base, term(i))
+            else: 
+                result = combiner(term(i), result)
+            i += 1
+        return result 
+    else: return base 
+
 
 def summation_using_accumulate(n, term):
     """Returns the sum of term(1) + ... + term(n). The implementation
@@ -71,7 +85,7 @@ def summation_using_accumulate(n, term):
     ...       ['Recursion', 'For', 'While'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    return accumulate(add, base=0, n=n, term=term)
 
 def product_using_accumulate(n, term):
     """An implementation of product using accumulate.
@@ -86,7 +100,7 @@ def product_using_accumulate(n, term):
     ...       ['Recursion', 'For', 'While'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    return accumulate(mul, base = 1, n = n, term = term)
 
 
 def compose1(func1, func2):
