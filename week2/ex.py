@@ -136,3 +136,11 @@ def sum_digits_iter(n):
         n, last = split(n)
         digit_sum += last 
     return digit_sum
+
+def cascade(n):
+    if n< 10:
+        print(n)
+    else: 
+        print(n)
+        cascade(n // 10)
+        print(n)
