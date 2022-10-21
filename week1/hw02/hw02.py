@@ -231,6 +231,22 @@ def mul_church(m, n):
     12
     """
     "*** YOUR CODE HERE ***"
+    # fff(x) * ff(x) = ffffff(x)
+    # three(f)(x) * two(f)(x) = ffffff(x)
+    # three(two(f))(x)
+
+    # using lambda expression (test passed)
+    # return lambda f: lambda x: m(n(f))(x)
+
+    # using function def (test passed)
+    def g(f):
+        def h(x):
+            return m(n(f))(x)
+        return h 
+    return g 
+        
+
+
 
 def pow_church(m, n):
     """Return the Church numeral m ** n, for Church numerals m and n.
