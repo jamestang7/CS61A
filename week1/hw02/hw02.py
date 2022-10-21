@@ -257,4 +257,14 @@ def pow_church(m, n):
     9
     """
     "*** YOUR CODE HERE ***"
+    # three(f)(x) ** two(f)(x)
+    # the latter indicate the number of multiplications
+    # two(mul_church(m,m))(x)
 
+    # using lambda expression
+    # return lambda x: n(m)(x)
+
+    # using function def
+    def f(x):
+        return n(m)(x)
+    return f 
