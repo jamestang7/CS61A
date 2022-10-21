@@ -175,10 +175,8 @@ def two(f):
     # def two(f): lambda x: f(f(x))
 
     # using function def 
-    def ff(f):
-        def fff(x):
-            return f(x)
-        return f(fff)
+    def ff(x):
+        return f(f(x))
     return ff
 
 three = successor(two)
@@ -196,6 +194,8 @@ def church_to_int(n):
     3
     """
     "*** YOUR CODE HERE ***"
+    return n(increment)(0)
+
 
 def add_church(m, n):
     """Return the Church numeral for m + n, for Church numerals m and n.
@@ -204,6 +204,22 @@ def add_church(m, n):
     5
     """
     "*** YOUR CODE HERE ***"
+    # fff(x) + ff(x) = fffff(x)
+    # three(f)(x) + two(f)(x)
+    # need replace x in first term with two(f)(x)
+    # have result three(f)(two(f)(x))
+
+    ## using lambda expression
+    # return lambda f: lambda x: m(f)(n(f)(x)) # passed test
+
+    ## using function def (passed test)
+    def g(f):
+        def h(x):
+            return m(f)(n(f)(x))
+        return h 
+    return g 
+
+
 
 def mul_church(m, n):
     """Return the Church numeral for m * n, for Church numerals m and n.
