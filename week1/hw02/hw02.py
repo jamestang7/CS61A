@@ -139,6 +139,9 @@ def make_repeater(func, n):
         return func 
 
 def zero(f):
+    # def g(x):
+    #   return x
+    # return g  
     return lambda x: x
 
 def successor(n):
@@ -146,11 +149,37 @@ def successor(n):
 
 def one(f):
     """Church numeral 1: same as successor(zero)"""
-    "*** YOUR CODE HERE ***"
+    # 1. successor(zero) = lambda f: lambda x: f(zero(f)(x))
+    # 2. zero(f) = lambda x: x 
+    # put 2 -> 1 successor(zero) = lambda f: lambda x: f(lambda x: x (x))
+    # one = successor(zero) = lambda f: lambda x: f(x)
+
+    # using lambda expression
+    # def one(f): lambda x: f(x)
+
+    # using function def
+    def ff(x):
+        return f(x) 
+    return ff
 
 def two(f):
     """Church numeral 2: same as successor(successor(zero))"""
     "*** YOUR CODE HERE ***"
+    # 1. successor(successor(zero))
+    # = successor(one)
+    # two = lambda f: lambda x: f(one(f)(x))
+    # 2. one(f) = lambda x: f(x)
+    # put 2 -> 1 two = lambda f: lambda x: f(f(x))
+    
+    # using lambda expression
+    # def two(f): lambda x: f(f(x))
+
+    # using function def 
+    def ff(f):
+        def fff(x):
+            return f(x)
+        return f(fff)
+    return ff
 
 three = successor(two)
 

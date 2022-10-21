@@ -105,4 +105,34 @@ def sum_squares_up_to(n):
         total, k = total + square(k), k + 1
     return total 
 
+def split(n):
+    return n // 10, n % 10 
 
+def sum_of_digits(n):
+    if n < 10:
+        return n 
+    else: 
+        all_but_last, last = split(n)
+        return sum_of_digits(all_but_last) + last 
+
+def luhn_sum(n):
+    if n < 10:
+        return n 
+    else: 
+        all_but_last, last = split(n)
+        return luhn_sum_double(all_but_last) + last 
+
+def luhn_sum_double(n):
+    all_but_last, last = split(n)
+    luhn_digits = sum_of_digits(2 * last)
+    if n < 10: 
+        return luhn_digits 
+    else: 
+        return luhn_sum(all_but_last) + luhn_digits
+
+def sum_digits_iter(n):
+    digit_sum = 0 
+    while n > 0:
+        n, last = split(n)
+        digit_sum += last 
+    return digit_sum
