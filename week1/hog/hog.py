@@ -22,8 +22,16 @@ def roll_dice(num_rolls, dice=six_sided):
     assert num_rolls > 0, 'Must roll at least once.'
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
+    resultList = [] 
+    while num_rolls > 0:
+        res =  dice()
+        resultList.append(res)
+        num_rolls -= 1
+    if 1 in resultList:
+        return 1
+    else:
+        return sum(resultList)
     # END PROBLEM 1
-
 
 def free_bacon(score):
     """Return the points scored from rolling 0 dice (Free Bacon).
@@ -33,6 +41,8 @@ def free_bacon(score):
     assert score < 100, 'The game should be over.'
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
+    ones_digit, tens_digit = score % 10, score // 10 
+    return 10 - ones_digit + tens_digit
     # END PROBLEM 2
 
 
@@ -50,7 +60,11 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
     assert num_rolls <= 10, 'Cannot roll more than 10 dice.'
     assert opponent_score < 100, 'The game should be over.'
     # BEGIN PROBLEM 3
-    "*** YOUR CODE HERE ***"
+    if num_rolls == 0:
+        res = free_bacon(opponent_score)
+    else: 
+        res = roll_dice(num_rolls, dice)
+    return res 
     # END PROBLEM 3
 
 
@@ -59,7 +73,13 @@ def is_swap(player_score, opponent_score):
     Return whether the two scores should be swapped
     """
     # BEGIN PROBLEM 4
-    "*** YOUR CODE HERE ***"
+    opponent_ones_digit = opponent_score % 10
+    opponent_tens_digit = opponent_score // 10
+    player_ones_digit = player_score % 10
+    if (abs(player_ones_digit - opponent_ones_digit)) == opponent_tens_digit:
+        return True 
+    else: 
+        return False
     # END PROBLEM 4
 
 
