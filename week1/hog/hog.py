@@ -73,8 +73,8 @@ def is_swap(player_score, opponent_score):
     Return whether the two scores should be swapped
     """
     # BEGIN PROBLEM 4
-    opponent_ones_digit = opponent_score % 10
-    opponent_tens_digit = opponent_score // 10
+    opponent_ones_digit, res = opponent_score % 10, opponent_score // 10
+    opponent_tens_digit = res % 10
     player_ones_digit = player_score % 10
     if (abs(player_ones_digit - opponent_ones_digit)) == opponent_tens_digit:
         return True 
