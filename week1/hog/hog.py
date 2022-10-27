@@ -328,6 +328,18 @@ def max_scoring_num_rolls(dice=six_sided, trials_count=1000):
     """
     # BEGIN PROBLEM 9
     "*** YOUR CODE HERE ***"
+    i = 10
+    max = 0
+    max_turn = 10
+    while i > 0:
+        roll_average = make_averaged(roll_dice, trials_count)
+        result = roll_average(i, dice) # roll_dice(num_rolls = i, dice = dice)
+        if result >= max:
+            max_turn = i 
+            # reset max
+            max = result 
+        i -= 1
+    return max_turn
     # END PROBLEM 9
 
 
@@ -356,10 +368,10 @@ def run_experiments():
         six_sided_max = max_scoring_num_rolls(six_sided)
         print('Max scoring num rolls for six-sided dice:', six_sided_max)
 
-    if False:  # Change to True to test always_roll(8)
+    if True:  # Change to True to test always_roll(8)
         print('always_roll(8) win rate:', average_win_rate(always_roll(8)))
 
-    if False:  # Change to True to test bacon_strategy
+    if True:  # Change to True to test bacon_strategy
         print('bacon_strategy win rate:', average_win_rate(bacon_strategy))
 
     if False:  # Change to True to test swap_strategy
@@ -377,7 +389,12 @@ def bacon_strategy(score, opponent_score, cutoff=8, num_rolls=6):
     rolls NUM_ROLLS otherwise.
     """
     # BEGIN PROBLEM 10
-    return 6  # Replace this statement
+    bacon_score = free_bacon(opponent_score)
+    if bacon_score >= cutoff:
+        return 0
+    else: 
+        return num_rolls
+
     # END PROBLEM 10
 
 
@@ -387,7 +404,14 @@ def swap_strategy(score, opponent_score, cutoff=8, num_rolls=6):
     non-beneficial swap. Otherwise, it rolls NUM_ROLLS.
     """
     # BEGIN PROBLEM 11
-    return 6  # Replace this statement
+    final_score = score + free_bacon(opponent_score)
+    delta = opponent_score - final_score
+    if is_swap(final_score, opponent_score) & (delta > 0):
+        return 0 
+    elif (free_bacon(opponent_score) >= cutoff) & (is_swap(final_score, opponent_score) == False):
+        return 0
+    else: 
+        return num_rolls
     # END PROBLEM 11
 
 
