@@ -1,6 +1,6 @@
 HW_SOURCE_FILE=__file__
-
-
+from ucb import trace 
+# @trace 
 def pascal(row, column):
     """Returns a number corresponding to the value at that location
     in Pascal's Triangle.
@@ -12,6 +12,15 @@ def pascal(row, column):
     3
     """
     "*** YOUR CODE HERE ***"
+    # Base case
+    if (row < column) | (column < 0):
+        return 0
+    elif (row == 0) & (column == 0):
+        return 1
+    # recursion happen
+    else:
+        return pascal(row - 1, column) + pascal(row - 1, column - 1)
+
 
 
 def compose1(f, g):
@@ -39,8 +48,12 @@ def repeated(f, n):
     ...       ['For', 'While'])
     True
     """
-    "*** YOUR CODE HERE ***"
-
+    if n == 1:
+        return f 
+    elif n == 0:
+        return lambda x: x
+    else:
+        return compose1(f, repeated(f, n - 1))
 
 def num_eights(x):
     """Returns the number of times 8 appears as a digit of x.
@@ -64,6 +77,12 @@ def num_eights(x):
     True
     """
     "*** YOUR CODE HERE ***"
+    if x == 8:
+        return 1
+    elif x < 10:
+        return 0 
+    else:
+        return num_eights(x // 10) + num_eights(x % 10)
 
 
 def pingpong(n):
@@ -98,5 +117,39 @@ def pingpong(n):
     >>> check(HW_SOURCE_FILE, 'pingpong', ['Assign', 'AugAssign'])
     True
     """
-    "*** YOUR CODE HERE ***"
+    def direction(times):
+        return (-1) ** times
 
+    # # while loop
+    # i = 1
+    # value = 1
+    # times = 0
+    # while (i < n):
+    #     if (num_eights(i)) | (i % 8 == 0):
+    #         times += 1
+    #     value = direction(times) + value 
+    #     i += 1
+    # return value
+
+    def pingpong_helper(stop, value, index, times):
+        """
+        calculating the next element of the sequence based on the previous value
+
+        """
+        # base case
+        if (index == stop):
+            return value
+        # conditon for flipping direction
+        else:
+            if (num_eights(index)) | ((index) % 8 == 0):
+                return pingpong_helper(stop, 
+                value + direction(times + 1),
+                index + 1,
+                times + 1
+                )
+            else: 
+                return pingpong_helper(stop, 
+                    value + direction(times), 
+                    index + 1, 
+                    times)
+    return pingpong_helper(n, 1, 1, 0)
