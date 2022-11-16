@@ -54,7 +54,7 @@ coverage.xml
 .ok_history
 .ok_storage
 .ok_messages
-.ok_storafge.db
+.ok_storage.db
 # Translations
 *.mo
 *.pot
