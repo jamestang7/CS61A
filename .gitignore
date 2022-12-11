@@ -51,10 +51,10 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 # OK log
-.ok_history
-.ok_storage
-.ok_messages
-.ok_storage.db
+*/.ok_history
+*/.ok_storage
+*/.ok_messages
+*/.ok_storage.db
 # Translations
 *.mo
 *.pot
