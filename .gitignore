@@ -55,6 +55,10 @@ coverage.xml
 */.ok_storage
 */.ok_messages
 */.ok_storage.db
+.ok_history
+.ok_storage
+.ok_messages
+.ok_storage.db
 .DS_Store
 # Translations
 *.mo
