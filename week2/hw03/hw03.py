@@ -1,5 +1,5 @@
 HW_SOURCE_FILE=__file__
-
+from math import floor, log2, pow
 
 def composer(func=lambda x: x):
     """
@@ -46,6 +46,10 @@ def g(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if n <= 3:
+        return n 
+    else: 
+        return g(n - 1) + 2 * g(n - 2) + 3 * g(n - 3)
 
 def g_iter(n):
     """Return the value of G(n), computed iteratively.
@@ -66,6 +70,25 @@ def g_iter(n):
     True
     """
     "*** YOUR CODE HERE ***"
+    if n <= 3:
+        return n 
+    else: 
+        # define previous 3 step outcome and step sum
+        total = 0 
+        currInd, currVal = 4, 3
+        prev1Val = 2
+        prev2Val = 1 
+        while currInd <= n:
+            total = currVal + 2 * prev1Val + 3 * prev2Val 
+            # undate index and values step wise 
+            prev2Val = prev1Val
+            prev1Val = currVal 
+            currVal = total 
+            # increment index by 1
+            currInd += 1
+        return total 
+
+
 
 
 def missing_digits(n):
@@ -96,7 +119,15 @@ def missing_digits(n):
     True
     """
     "*** YOUR CODE HERE ***"
-
+    if (n // 10) < 1:
+        return 0 
+    elif (n // 100) < 1: 
+        if n // 10 == n % 10:
+            return 0 
+        else: 
+            return (n % 10) - (n // 10) - 1
+    else:
+        return missing_digits(n // 10) + missing_digits(n % 100)
 
 def count_change(total):
     """Return the number of ways to make change for total.
@@ -115,6 +146,55 @@ def count_change(total):
     True
     """
     "*** YOUR CODE HERE ***"
+    # start from the largest coin
+    def change_helper(total, partition):
+        # mirror the structure from count_partition
+
+        # base case
+        if total < 0:
+            return 0
+        elif total == 0:
+            return 1
+        elif partition == 0:
+            return 0
+        else: 
+            return change_helper(total - big_coin_func(partition), 
+                    big_coin_func(partition)) + change_helper(total, big_coin_func(partition) - 1)
+
+    
+    def big_coin_func(total):
+        '''
+        Given total return the largest number of power of 2 smaller 
+        than total
+        '''
+        if total == 0:
+            return 0 
+        else: 
+            return pow(2, floor(log2(total)))
+
+    return change_helper(total, total)
+
+    ### second solution
+    # start from the smallest coin
+    # def change_helper_small(total, small_coin):
+    #     # base case, total = 0 , 1 
+    #     # do not include the smallest coin 
+    #     # do include the smallest coin 
+    #     # add both of those cases 
+
+    #     pass 
+    # return change_helper(total, 1)
+
+def count_mn(m, n):
+    if m == 0:
+        return 1
+    elif m < 0:
+        return 0
+    elif n == 0:
+        return 0
+    else:
+        return count_mn(m - n, n) + count_mn(m, n - 1)
+
 
 
 def print_move(origin, destination):
