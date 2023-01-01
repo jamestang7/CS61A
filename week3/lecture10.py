@@ -22,3 +22,13 @@ def reverse(s):
         return s 
     else: 
         return reverse(s[1:]) + s[0]
+from math import gcd
+
+def rational(n, d):
+    g = gcd(n, d)
+    return [n // g, d // g]
+
+def numer(x):
+    return x[0]
+def denom(x):
+    return x[1]
