@@ -41,6 +41,27 @@ def berry_finder(t):
     True
     """
     "*** YOUR CODE HERE ***"
+    # if label(t) == 'berry':
+    #   return True
+    # elif is_leaf(t):
+    #   return False
+    # else:
+    #   flag = False
+    #   for branch in branches(t):
+    #     flag = flag | berry_finder(branch)
+    #     # print('in branch',label(branch),flag)
+    #   return flag
+
+    if label(t) == 'berry':
+      return True
+    elif is_leaf(t):
+      return False
+    else:
+      for branch in branches(t):
+        if berry_finder(branch):
+          return True
+        # print('in branch',label(branch),flag)
+      return False
 
 
 def sprout_leaves(t, leaves):
