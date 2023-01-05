@@ -218,7 +218,9 @@ def build_successors_table(tokens):
     prev = '.'
     for word in tokens:
         if prev not in table:
-            "*** YOUR CODE HERE ***"
+            table[prev] = [word]
+        else: 
+          table[prev].append(word)
         "*** YOUR CODE HERE ***"
         prev = word
     return table
