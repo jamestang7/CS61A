@@ -154,7 +154,7 @@ def check_abstraction():
     >>> change_abstraction(False)
     """
 
-
+from itertools import zip_longest
 def add_trees(t1, t2):
     """
     >>> numbers = tree(1,
@@ -191,6 +191,13 @@ def add_trees(t1, t2):
       5
     """
     "*** YOUR CODE HERE ***"
+    if is_leaf(t1) & is_leaf(t2):
+      return tree(label(t1) + label(t2))
+    else:
+      root_sum = label(t1) + label(t2)
+      zipped = zip_longest(branches(t1), branches(t2), fillvalue=tree(0))
+      lst = [add_trees(x, y) for (x, y) in zipped]
+      return tree(root_sum, lst)
 
 
 def build_successors_table(tokens):
