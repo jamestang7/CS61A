@@ -180,7 +180,7 @@ def replace_leaf(t, find_value, replace_value):
         freya
       frigg
         freya
-      thor
+      freya
         sif
         freya
       freya
@@ -188,6 +188,22 @@ def replace_leaf(t, find_value, replace_value):
     True
     """
     "*** YOUR CODE HERE ***"
+    # copy a tree
+    t_copy = copy_tree(t)
+    
+    # base case if leaf node
+    if is_leaf(t_copy):
+        if label(t_copy) == find_value:
+            return tree(replace_value)
+        else:
+            return t_copy 
+    else:
+        if label(t_copy) == find_value:
+            value_return = replace_value
+        else: 
+            value_return = label(t_copy)
+        return tree(value_return, 
+                    [replace_leaf(b, find_value, replace_value) for b in branches(t_copy)])
 
 
 def preorder(t):
