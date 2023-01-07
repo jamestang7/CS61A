@@ -107,6 +107,20 @@ def balanced(m):
     True
     """
     "*** YOUR CODE HERE ***"
+    # protection for recursion 
+    if is_planet(m):
+        return True
+    else:
+        arm_l, arm_r = left(m), right(m)
+        length_l, length_r = length(arm_l), length(arm_r)
+        # base case
+        if balanced(end(arm_l)) & balanced(end(arm_r)):
+            torque_left = total_weight(end(arm_l)) * length_l
+            torque_right = total_weight(end(arm_r)) * length_r
+            return torque_left == torque_right
+        else:
+            return False
+
 
 def totals_tree(m):
     """Return a tree representing the mobile with its total weight at the root.
