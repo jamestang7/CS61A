@@ -308,8 +308,8 @@ def sub_interval(x, y):
     p2 = lower_bound(x) - upper_bound(y)
     p3 = upper_bound(x) - lower_bound(y)
     p4 = upper_bound(x) - upper_bound(y)
-    return [min(p1, p2, p3, p4), max(p1, p2, p3, p4)]
-    
+    return interval(min(p1, p2, p3, p4), max(p1, p2, p3, p4))
+
 
 
 def div_interval(x, y):
@@ -317,6 +317,7 @@ def div_interval(x, y):
     any value in y. Division is implemented as the multiplication of x by the
     reciprocal of y."""
     "*** YOUR CODE HERE ***"
+    assert (upper_bound(y) <0) | (lower_bound(y)>0) 
     reciprocal_y = interval(1/upper_bound(y), 1/lower_bound(y))
     return mul_interval(x, reciprocal_y)
 
@@ -335,6 +336,16 @@ def quadratic(x, a, b, c):
     '0 to 10'
     """
     "*** YOUR CODE HERE ***"
+    x_extreme, x_lower, x_upper = -b / (2 * a), lower_bound(x), upper_bound(x) 
+    def f(t):
+        return a * (t**2) + b*t + c 
+    if (x_extreme >= x_lower) & (x_extreme <= x_upper):
+        return interval(min(f(x_extreme), f(x_lower), f(x_upper)),
+                        max(f(x_extreme), f(x_lower), f(x_upper)))
+    else: 
+        return interval(min(f(x_lower), f(x_upper)),
+                        max(f(x_lower), f(x_upper)))
+
 
 
 def par1(r1, r2):
