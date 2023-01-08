@@ -365,8 +365,8 @@ def check_par():
     >>> lower_bound(x) != lower_bound(y) or upper_bound(x) != upper_bound(y)
     True
     """
-    r1 = interval(1, 1) # Replace this line!
-    r2 = interval(1, 1) # Replace this line!
+    r1 = interval(-2, -1) # Replace this line!
+    r2 = interval(-5, -3) # Replace this line!
     return r1, r2
 
 
