@@ -46,9 +46,7 @@ def about(topic):
         return bool(len(set_para & set_topic))
     return select
     # END PROBLEM 2
-dogs = about(['dogs', 'hounds'])
-dogs('A paragraph about cats.')
-dogs('A paragraph about dogs.')
+
 def accuracy(typed, reference):
     """Return the accuracy (percentage of words typed correctly) of TYPED
     when compared to the prefix of REFERENCE that was typed.
