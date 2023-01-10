@@ -42,7 +42,6 @@ def about(topic):
     "*** YOUR CODE HERE ***"
     # END PROBLEM 2
 
-
 def accuracy(typed, reference):
     """Return the accuracy (percentage of words typed correctly) of TYPED
     when compared to the prefix of REFERENCE that was typed.
