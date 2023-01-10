@@ -46,6 +46,7 @@ def about(topic):
         return bool(len(set_para & set_topic))
     return select
     # END PROBLEM 2
+### testing 
 
 def accuracy(typed, reference):
     """Return the accuracy (percentage of words typed correctly) of TYPED
