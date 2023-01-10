@@ -3,7 +3,7 @@
 from utils import *
 from ucb import main, interact, trace
 from datetime import datetime
-
+import re
 
 ###########
 # Phase 1 #
@@ -40,9 +40,15 @@ def about(topic):
     assert all([lower(x) == x for x in topic]), 'topics should be lowercase.'
     # BEGIN PROBLEM 2
     "*** YOUR CODE HERE ***"
+    def select(paragraphs):
+        clean = lower(re.sub(r'[^\w\s]', '', paragraphs)).split() 
+        set_topic, set_para = set(topic), set(clean)
+        return bool(len(set_para & set_topic))
+    return select
     # END PROBLEM 2
-
-
+dogs = about(['dogs', 'hounds'])
+dogs('A paragraph about cats.')
+dogs('A paragraph about dogs.')
 def accuracy(typed, reference):
     """Return the accuracy (percentage of words typed correctly) of TYPED
     when compared to the prefix of REFERENCE that was typed.
