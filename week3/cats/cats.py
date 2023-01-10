@@ -63,13 +63,39 @@ def accuracy(typed, reference):
     100.0
     >>> accuracy('', 'Cute Dog.')
     0.0
+    >>> accuracy("a b c d", " a d ")
+    ? 0.0
+    -- Not quite. Try again! --
+
+    ? 50.0
+    -- Not quite. Try again! --
+
+    ? 100.0
+    -- Not quite. Try again! --
+
+    ? 50
+    -- Not quite. Try again! --
+
+    ? 50.0
+    -- Not quite. Try again! --
+
+    ? 25.0
+    -- OK! --
     """
     typed_words = split(typed)
     reference_words = split(reference)
     # BEGIN PROBLEM 3
     "*** YOUR CODE HERE ***"
+    ptr1, ptr2 = 0, 0 
+    correct = 0
+    while (ptr1 < len(typed_words)) & (ptr2 < len(reference_words)):
+        if typed_words[ptr1] == reference_words[ptr2]:
+            correct += 1
+        ptr1 += 1 
+        ptr2 += 1 
+    return correct / len(typed_words) * 100 if len(typed_words) else 0.0
     # END PROBLEM 3
-
+accuracy("a  b  c  d", "b  a  c  d")
 
 def wpm(typed, elapsed):
     """Return the words-per-minute (WPM) of the TYPED string."""
