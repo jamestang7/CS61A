@@ -17,6 +17,13 @@ def choose(paragraphs, select, k):
     """
     # BEGIN PROBLEM 1
     "*** YOUR CODE HERE ***"
+    assert k >=0, "k needs to be non-negative"
+    result_lst = [p for p in paragraphs if select(p)]
+    if k > len(result_lst) - 1:
+        return ''
+    else:
+        return result_lst[k]
+
     # END PROBLEM 1
 
 
