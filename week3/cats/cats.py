@@ -105,7 +105,7 @@ def wpm(typed, elapsed):
     return len(typed) / 5 / (elapsed / 60)
     # END PROBLEM 4
 
-
+import operator
 def autocorrect(user_word, valid_words, diff_function, limit):
     """Returns the element of VALID_WORDS that has the smallest difference
     from USER_WORD. Instead returns USER_WORD if that difference is greater
@@ -113,9 +113,20 @@ def autocorrect(user_word, valid_words, diff_function, limit):
     """
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
+    if user_word in valid_words:
+        return user_word
+    else:
+        dic = {}
+        for word in valid_words:
+            dic[word] = diff_function(user_word, word, limit)
+        lowest_diff_key, lowest_diff_value = min(dic.items(), 
+                                            key=operator.itemgetter(1))
+        if lowest_diff_value > limit:
+            return user_word
+        else:
+            return lowest_diff_key
     # END PROBLEM 5
-
-
+    
 def shifty_shifts(start, goal, limit):
     """A diff function for autocorrect that determines how many letters
     in START need to be substituted to create GOAL, then adds the difference in
