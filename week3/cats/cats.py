@@ -126,16 +126,93 @@ def autocorrect(user_word, valid_words, diff_function, limit):
         else:
             return lowest_diff_key
     # END PROBLEM 5
-    
+import copy
 def shifty_shifts(start, goal, limit):
     """A diff function for autocorrect that determines how many letters
     in START need to be substituted to create GOAL, then adds the difference in
     their lengths.
+    # >>> big_limit = 10
+    # >>> shifty_shifts("nice", "rice", big_limit)    # Substitute: n -> r
+    # 1
+    # >>> shifty_shifts("range", "rungs", big_limit)  # Substitute: a -> u, e -> s
+    # 2
+    # >>> shifty_shifts("pill", "pillage", big_limit) # Don't substitute anything, length difference of 3.
+    # 3
+    # >>> shifty_shifts("roses", "arose", big_limit)  # Substitute: r -> a, o -> r, s -> o, e -> s, s -> e
+    # 5
+    # >>> shifty_shifts("rose", "hello", big_limit)   # Substitue: r->h, o->e, s->l, e->l, length difference of 1.
+    # 5
     """
     # BEGIN PROBLEM 6
-    assert False, 'Remove this line'
-    # END PROBLEM 6
+# ---------------------------------------------------------------------------- #
+#                                   dp draft¸                                  #
+# ---------------------------------------------------------------------------- #
+    # def EditDistance(i, j):
+        # '''
+        # i: index of start to its string end
+        # j: index of goal to its string end 
+        # '''
+        # if(i == len(start)) & (j == len(goal)): return 0
+        # if(i == len(start)): return len(goal) - j
+        # if(j == len(goal)): return len(start) - i
+        # if (start[i] == goal[j]): 
+        #     return EditDistance(i + 1, j + 1) + 1
+        # else:
+        #     return min(EditDistance(i + 1, j) + 1, # Insert 
+        #                 EditDistance(i + 1, j + 1) + 1, # Replace
+        #                 EditDistance(i, j + 1) + 1 # Delete
+        #     )
+# ---------------------------------------------------------------------------- #
+#                                  dp solution                                 #
+# ---------------------------------------------------------------------------- #
+    # init matrix called dp
+    # rows = [0] * (len(goal) + 1)
+    # dp = [copy.deepcopy(rows) for _ in range((len(start) + 1))]
+    # # init dp outlets
+    # for i in range(len(start) - 1, -1, -1):
+    #     dp[i][len(goal)] = len(start) - i
+    # for j in range(len(goal) - 1, -1, -1):
+    #     dp[len(start)][j] = len(goal) - j  
+    # for i in range(len(start), 0, -1):
+    #     for j in range(len(goal),0, -1):
+    #         s_index, g_index = len(start) - i, len(goal) - j
+    #         if start[s_index] == goal[g_index]:
+    #             dp[i - 1][j - 1] = dp[i][j]
+    #         else:
+    #             dp[i - 1][j - 1] = min(dp[i][j - 1] + 1, # Insert 
+    #                     dp[i][j] + 1, # Replace
+    #                     dp[i - 1][j] + 1 # Delete
+    #                     )
+    # return dp[0][0]
+# ------------------------------- while solution ------------------------------ #
+    # ptr1, ptr2, count = 0, 0, 0
+    # while (len(start) == len(goal)) & (ptr1 < len(start)) & (ptr2 < len(goal)):
+    #     if start[ptr1] != goal[ptr2]:
+    #         count += 1 
+    # return count + abs(len(start) - len(goal))
+# ---------------------------------------------------------------------------- #
+#                                   Recursion                                  #
+# ---------------------------------------------------------------------------- #
+    def helper(start, goal, limit, last=0):
+        if limit >= last:
+            if (len(start) == 1) & (len(goal) == 1):
+                return 0 if start == goal else 1
+            len_diff = abs(len(start) - len(goal))
+            if (len(start) == 1) | (len(goal) == 1):
+                return len_diff if start[0] == goal[0] else len_diff + 1
+            else:
+                if start[0] == goal[0]:
+                    return helper(start[1:], goal[1:], limit, last)
+                else:
+                    return helper(start[1:], goal[1:], limit, last + 1) + 1
+        else: 
+            return limit + 1
+    return helper(start, goal, limit)
 
+
+
+
+    # END PROBLEM 6
 
 def meowstake_matches(start, goal, limit):
     """A diff function that computes the edit distance from START to GOAL."""
