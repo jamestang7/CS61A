@@ -309,7 +309,22 @@ def time_per_word(times_per_player, words):
         words: a list of words, in the order they are typed.
     """
     # BEGIN PROBLEM 9
-    "*** YOUR CODE HERE ***"
+    def helper(list):
+        """
+        Given a list of increasing numbers, calculate the difference of them
+        return a list of difference 
+        """
+        ptr1, ptr2 = 0, 1
+        res = []
+        while ptr2 < len(list) :
+            res.append(list[ptr2] - list[ptr1])
+            ptr1 += 1
+            ptr2 += 1
+        return res 
+    times = []
+    for player_time in times_per_player:
+        times.append(helper(player_time))
+    return game(words, times)
     # END PROBLEM 9
 
 
