@@ -260,7 +260,6 @@ def meowstake_matches(start, goal, limit):
         else:
             return limit + 1
     return helper(start, goal, limit)
-meowstake_matches('titer', 'tskhteur', 100)
 
 def final_diff(start, goal, limit):
     """A diff function. If you implement this function, it will be used."""
