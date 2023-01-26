@@ -216,26 +216,51 @@ def shifty_shifts(start, goal, limit):
 
 def meowstake_matches(start, goal, limit):
     """A diff function that computes the edit distance from START to GOAL."""
-    assert False, 'Remove this line'
+# ---------------------------------------------------------------------------- #
+#                                   Template                                   #
+# ---------------------------------------------------------------------------- #
 
-    if ______________: # Fill in the condition
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+    # if ___________: # Fill in the condition
+    #     # BEGIN
+    #     "*** YOUR CODE HERE ***"
+    #     # END
 
-    elif ___________: # Feel free to remove or add additional cases
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
+    # elif ___________: # Feel free to remove or add additional cases
+    #     # BEGIN
+    #     "*** YOUR CODE HERE ***"
+    #     # END
 
-    else:
-        add_diff = ...  # Fill in these lines
-        remove_diff = ... 
-        substitute_diff = ... 
-        # BEGIN
-        "*** YOUR CODE HERE ***"
-        # END
-
+    # else:
+    #     add_diff = ...  # Fill in these lines
+    #     remove_diff = ... 
+    #     substitute_diff = ... 
+    #     # BEGIN
+    #     "*** YOUR CODE HERE ***"
+    #     # END
+# ---------------------------------------------------------------------------- #
+#                                  rc solution                                 #
+# ---------------------------------------------------------------------------- #
+    def helper(start, goal, limit, cost=0): 
+        if limit >= cost:
+            len_diff = abs(len(start) - len(goal))
+            if (len(start) == 1) & (len(goal) == 1):
+                return 0 if start[0] == goal[0] else 1
+            elif (len(start) == 1) | (len(goal) == 1):
+                letter = min([start, goal], key=len)
+                longer = max([start, goal], key=len)
+                return len_diff if letter in longer else len_diff + 1
+            else:
+                if start[0] == goal[0]:
+                    return helper(start[1:], goal[1:], limit, cost)
+                else:
+                    min_cost =  min(helper(start, goal[1:], limit, cost+1) + 1, # addition
+                    helper(start[1:], goal, limit, cost+1) + 1, # subtraction
+                    helper(start[1:], goal[1:], limit, cost+1) + 1) # subs
+                    return min_cost
+        else:
+            return limit + 1
+    return helper(start, goal, limit)
+meowstake_matches('titer', 'tskhteur', 100)
 
 def final_diff(start, goal, limit):
     """A diff function. If you implement this function, it will be used."""
