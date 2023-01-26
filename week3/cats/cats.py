@@ -274,7 +274,16 @@ def final_diff(start, goal, limit):
 def report_progress(typed, prompt, id, send):
     """Send a report of your id and progress so far to the multiplayer server."""
     # BEGIN PROBLEM 8
-    "*** YOUR CODE HERE ***"
+    count = 0 
+    for i in range(len(typed)):
+        if typed[i] == prompt[i]:
+            count += 1
+        else: 
+            break
+    progress = count / len(prompt) 
+    dic = {'id': id, 'progress': progress}
+    send(dic)
+    return progress
     # END PROBLEM 8
 
 
