@@ -50,6 +50,28 @@ def make_fib():
     True
     """
     "*** YOUR CODE HERE ***"
+    i = 0
+    swap = 0 
+    result = 0 
+    prev = 0
+    def fib():
+        nonlocal i 
+        nonlocal swap 
+        nonlocal result 
+        nonlocal prev
+        if i == 0:
+            i += 1
+            return 0
+        elif i == 1:
+            result = 1
+            i += 1 
+            return result  
+        else: 
+            swap = result
+            result = result + prev 
+            prev = swap  
+            return result
+    return fib
 
 
 def insert_items(lst, entry, elem):
@@ -72,4 +94,5 @@ def insert_items(lst, entry, elem):
 
 if __name__ == '__main__':
     import doctest 
-    doctest.run_docstring_examples(make_adder_inc, globals(),verbose=True)
+    # doctest.run_docstring_examples(make_adder_inc, globals(),verbose=True)
+    doctest.run_docstring_examples(make_fib, globals(), verbose=True)
