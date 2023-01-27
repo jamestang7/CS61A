@@ -92,7 +92,7 @@ def insert_items(lst, entry, elem):
     """
     "*** YOUR CODE HERE ***"
 
-if __name__ == '__main__':
-    import doctest 
-    # doctest.run_docstring_examples(make_adder_inc, globals(),verbose=True)
-    doctest.run_docstring_examples(make_fib, globals(), verbose=True)
+# if __name__ == '__main__':
+#     import doctest 
+#     # doctest.run_docstring_examples(make_adder_inc, globals(),verbose=True)
+#     doctest.run_docstring_examples(make_fib, globals(), verbose=True)
