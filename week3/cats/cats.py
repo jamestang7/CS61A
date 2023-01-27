@@ -340,6 +340,12 @@ def fastest_words(game):
     words = range(len(all_words(game)))    # An index for each word
     # BEGIN PROBLEM 10
     "*** YOUR CODE HERE ***"
+    result = [[] for i in players]
+    for word_index in words:
+        times = [p[word_index] for p in all_times(game)]
+        player_index = min(range(len(times)), key=times.__getitem__)
+        result[player_index].append(word_at(game, word_index))
+    return result 
     # END PROBLEM 10
 
 
@@ -456,7 +462,11 @@ def run_typing_test(topics):
         if input().strip() == 'q':
             return
         i += 1
-
+p0 = [2, 2, 3]
+p1 = [6, 1, 2]
+fastest_words(game(['What', 'great', 'luck'], [p0, p1]))
+p2 = [4, 3, 1]
+fastest_words(game(['What', 'great', 'luck'], [p0, p1, p2]))
 
 @main
 def run(*args):
