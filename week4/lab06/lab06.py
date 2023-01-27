@@ -17,6 +17,13 @@ def make_adder_inc(a):
     11
     """
     "*** YOUR CODE HERE ***"
+    i = 0 
+    def adder(b):
+        nonlocal i 
+        result = a + b + i 
+        i = i + 1
+        return result
+    return adder     
 
 
 def make_fib():
@@ -63,3 +70,6 @@ def insert_items(lst, entry, elem):
     """
     "*** YOUR CODE HERE ***"
 
+if __name__ == '__main__':
+    import doctest 
+    doctest.run_docstring_examples(make_adder_inc, globals(),verbose=True)
