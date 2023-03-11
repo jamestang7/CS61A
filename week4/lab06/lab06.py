@@ -90,9 +90,18 @@ def insert_items(lst, entry, elem):
     >>> large_lst3 is large_lst
     True
     """
-    "*** YOUR CODE HERE ***"
+    ptr = 0 
+    try: 
+        while lst.index(entry, ptr + 1):
+            ptr = lst.index(entry, ptr) + 1
+            lst.insert(ptr, elem)
+    except:
+        return lst
+# large_lst = [1, 4, 8]
+# large_lst2 = insert_items(large_lst, 4, 4)
+# print(large_lst2)
 
-# if __name__ == '__main__':
-#     import doctest 
-#     # doctest.run_docstring_examples(make_adder_inc, globals(),verbose=True)
-#     doctest.run_docstring_examples(make_fib, globals(), verbose=True)
+if __name__ == '__main__':
+    import doctest 
+    # doctest.run_docstring_examples(make_adder_inc, globals(),verbose=True)
+    doctest.run_docstring_examples(insert_items, globals(), verbose=True)
