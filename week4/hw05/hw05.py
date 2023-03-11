@@ -138,8 +138,49 @@ def merge(incr_a, incr_b):
     """
     iter_a, iter_b = iter(incr_a), iter(incr_b)
     next_a, next_b = next(iter_a, None), next(iter_b, None)
-    "*** YOUR CODE HERE ***"
+    def helper(iter_a, iter_b, next_a, next_b, prev_big=None):
+        # base case 
+        # b is not none
+        if (next_a == None) and (next_b != None):
+            yield next_b
+            next_b = next(iter_b, None)
+            yield from helper(iter_a, iter_b, next_a, next_b, prev_big)
+        # a is not none
+        elif (next_b == None) and (next_a != None):
+            yield next_a 
+            next_a = next(iter_a, None)
+            yield from helper(iter_a, iter_b, next_a, next_b, prev_big)
+        # both are not none
+        elif (next_a != None) and (next_b != None):
+            prev_big = next_a if next_a > next_b else next_b
+            # if a == b, yield any, iter both
+            if next_a == next_b:
+                yield next_a
+                next_a, next_b = next(iter_a, None), next(iter_b, None)
+                yield from helper(iter_a, iter_b, next_a, next_b, prev_big)
+            # if prev > a, yield small a, iter a
+            elif prev_big > next_a:
+                yield next_a 
+                next_a = next(iter_a, None)
+                prev_big = max(next_a, next_b) if (next_a!=None) & (next_b!= None) else None
+                yield from helper(iter_a, iter_b, next_a, next_b, prev_big)
+            # if prev > b, yield small b, iter b
+            elif prev_big > next_b: 
+                yield next_b
+                next_b = next(iter_b,None)
+                prev_big = max(next_a, next_b) if (next_a!=None) & (next_b!= None) else None
+                yield from helper(iter_a, iter_b, next_a, next_b, prev_big)
+            # if prev is the smallest, yield prev, and replace it wiht bigger 
+            else:
+                yield prev_big
+                prev_big = max(next_a, next_b) if (next_a!=None) & (next_b!= None) else None
+                yield from helper(iter_a, iter_b, next_a, next_b, prev_big)
+        # else: # both None
+        #     yield None
+    return helper(iter_a, iter_b, next_a, next_b)
 
+m = merge([0, 2, 4, 6, 8, 10, 12, 14], [0, 3, 6, 9, 12, 15])
+list(m)
 
 def make_joint(withdraw, old_pass, new_pass):
     """Return a password-protected withdraw function that has joint access to
