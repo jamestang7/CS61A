@@ -179,8 +179,8 @@ def merge(incr_a, incr_b):
         #     yield None
     return helper(iter_a, iter_b, next_a, next_b)
 
-m = merge([0, 2, 4, 6, 8, 10, 12, 14], [0, 3, 6, 9, 12, 15])
-list(m)
+# m = merge([0, 2, 4, 6, 8, 10, 12, 14], [0, 3, 6, 9, 12, 15])
+# list(m)
 
 def make_joint(withdraw, old_pass, new_pass):
     """Return a password-protected withdraw function that has joint access to
